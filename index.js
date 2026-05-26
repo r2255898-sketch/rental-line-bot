@@ -40,7 +40,6 @@ app.post("/send", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => res.send("LINE Bot Server OK"));
-
-const PORT = process.env.PORT || 3000;
+app.get("/", (req, res) => res.send("LINE Bot Server const PORT = process.env.PORT || const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
