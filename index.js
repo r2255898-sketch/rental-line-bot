@@ -4,8 +4,8 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
@@ -14,7 +14,7 @@ app.post("/send", async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: "message is required" });
 
-  const LINE_TOKEN   = process.env.LINE_TOKEN;
+  const LINE_TOKEN = process.env.LINE_TOKEN;
   const LINE_USER_ID = process.env.LINE_USER_ID;
 
   try {
@@ -41,5 +41,6 @@ app.post("/send", async (req, res) => {
 });
 
 app.get("/", (req, res) => res.send("LINE Bot Server OK"));
+
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
