@@ -9,7 +9,20 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
- 
+ // 接收 Webhook，記錄群組 ID
+app.post("/webhook", (req, res) => {
+  const events = req.body.events || [];
+  events.forEach(event => {
+    const source = event.source;
+    if (source && source.type === "group") {
+      console.log("群組 ID:", source.groupId);
+    }
+    if (source && source.type === "user") {
+      console.log("User ID:", source.userId);
+    }
+  });
+  res.sendStatus(200);
+});
 app.post("/send", async (req, res) => {
   const { message } = req.body;
   console.log("收到請求, message:", message ? message.slice(0, 50) : "無");
