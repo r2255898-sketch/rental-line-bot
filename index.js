@@ -29,11 +29,13 @@ app.post("/send", async (req, res) => {
   
   if (!message) return res.status(400).json({ error: "message is required" });
  
-  const LINE_TOKEN = process.env.LINE_TOKEN;
-  const LINE_USER_ID = process.env.LINE_USER_ID;
+ const LINE_TOKEN = process.env.LINE_TOKEN;
+const LINE_USER_ID = process.env.LINE_USER_ID;
+const LINE_GROUP_ID = process.env.LINE_GROUP_ID;
+const to = LINE_GROUP_ID || LINE_USER_ID;
  
   console.log("TOKEN 前20字:", LINE_TOKEN ? LINE_TOKEN.slice(0, 20) : "無");
-  console.log("USER_ID:", LINE_USER_ID);
+  to: to,
  
   try {
     const response = await fetch("https://api.line.me/v2/bot/message/push", {
